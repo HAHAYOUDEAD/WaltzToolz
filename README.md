@@ -9,7 +9,7 @@
 - Option to skip menus and automatically load last sandbox save when game starts
 - Option to quickly load and place meshes from an asset bundle
 - Overlay:
-  - Look-at object name will show in gray if isPartOfStaticBatch is true
+  - Look-at object name will show in gray if `isPartOfStaticBatch` is true
   - Command Batch section buttons will execute any commands from text files located in `waltzToolz/commandSets/`
 - Console commands:
   - weather_clear - sets time to 8 and weather to clear
