@@ -1,24 +1,24 @@
 ﻿using ModSettings;
 
-namespace DT
+namespace WT
 {
     internal static class Settings
     {
         public static void OnLoad()
         {
-            Settings.options = new DTSettings();
+            Settings.options = new WTSettings();
             Settings.options.AddToModSettings("Waltz Toolz");
         }
 
-        public static DTSettings options;
+        public static WTSettings options;
     }
 
-    internal class DTSettings : JsonModSettings
+    internal class WTSettings : JsonModSettings
     {
         [Section("Controls")]
 
         [Name("God")]
-        [Description("Toggle god mode")]
+        [Description("Toggle god mode + infinite carry weight")]
         public KeyCode godKey = KeyCode.F3;
 
         [Name("Fly")]
@@ -59,11 +59,11 @@ namespace DT
         public KeyCode meshKey = KeyCode.Slash;
 
         [Section("Misc")]
-
+        /*
         [Name("Hide UE on start")]
         [Description("Actually hide Unity Explorer on game start, for real")]
         public bool hideUE = false;
-
+        */
         [Name("Skip menus")]
         [Description("Load last sandbox save when game starts, skipping all the menus")]
         public bool skipMenus = false;

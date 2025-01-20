@@ -1,7 +1,8 @@
 ﻿using Il2Cpp;
 using Il2CppTLD.IntBackedUnit;
+using Il2CppTLD.Placement;
 
-namespace DT
+namespace WT
 {
     internal class UnbreakablePatches
     {
@@ -14,9 +15,31 @@ namespace DT
         {
             internal static void Prefix(ref GameManager __instance)
             {
-                DTMain.gm = __instance;
+                Main.gm = __instance;
             }
         }
+
+        /*
+        [HarmonyPatch(typeof(UEYJ.UI.Panels.UEPanel), nameof(UEYJ.UI.Panels.UEPanel.SetActive))]
+        private static class gffg
+        {
+            internal static void Postfix(ref UEYJ.UI.Panels.UEPanel __instance, ref bool active)
+            {
+                MelonLogger.Msg(CC.Red, $"{__instance.PanelType} - {active}");
+            }
+        }
+
+
+        [HarmonyPatch(typeof(UEYJ.UI.Panels.UEPanel), nameof(UEYJ.UI.Panels.UEPanel.ApplySaveData), [typeof(string)])]
+        private static class tes1
+        {
+            internal static void Prefix(ref UEYJ.UI.Panels.UEPanel __instance, ref string data)
+            {
+                MelonLogger.Msg(__instance.PanelType);
+                MelonLogger.Msg(data);
+            }
+        }
+        */
         
         [HarmonyPatch(typeof(ConsoleManager), nameof(ConsoleManager.CONSOLE_god))]
         private static class ToggleInfiniteCarry
@@ -60,7 +83,7 @@ namespace DT
         {
             internal static void Postfix(ref bool __result)
             {
-                if (DTMain.showCursor || DTMain.showCursorForHUD)
+                if (Main.showCursor || Overlay.showCursorForHUD)
                 {
                     __result = true;
                 }
@@ -68,12 +91,12 @@ namespace DT
             }
         }
 
-        [HarmonyPatch(typeof(PlayerManager), "GetGearPlacePoint")]
+        [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.GetGearPlacePoint))]
         private static class DisableCookingPlacementPoints
         {
             internal static bool Prefix()
             {
-                return DTMain.allowCookPlacement;
+                return Main.allowCookPlacement;
             }
         }
 
@@ -82,7 +105,7 @@ namespace DT
         {
             internal static void Postfix()
             {
-                if (DTMain.isPlacingCustom) DTMain.isPlacingCustom = false;
+                if (Main.isPlacingCustom) Main.isPlacingCustom = false;
             }
         }
 
@@ -91,41 +114,42 @@ namespace DT
         {
             internal static void Postfix(ref PlayerManager __instance)
             {
-                if (DTMain.isPlacingCustom)
+                if (Main.isPlacingCustom)
                 {
-                    DTMain.isPlacingCustom = false;
+                    Main.isPlacingCustom = false;
                     GameObject.Destroy(__instance.m_ObjectToPlace);  
                 }
             }
         }
 
-
-
-        [HarmonyPatch(typeof(FlyMode), "LateUpdate")]
-        private static class DisableGravityWhenInFlyMode
+        [HarmonyPatch(typeof(FlyMode), nameof(FlyMode.Enter))]
+        private static class GhostWhenFlyOn
         {
-            internal static bool Prefix()
+            internal static void Postfix()
             {
-                if (CameraDebugMode.IsFly)
-                {
-                    
-                    if (Physics.gravity != Vector3.zero)
-                    {
-                        Physics.gravity = Vector3.zero; // doesn't work for whatever reason
-                    }
-                    
-                }
-                else
-                {
-                    if (Physics.gravity == Vector3.zero)
-                    {
-                        Physics.gravity = gravityVector;
-                    }
-                }
+                GameManager.GetPlayerManagerComponent().m_Ghost = true;
+                GameManager.m_vpFPSPlayer.Controller.m_FallSpeed = 0;
+                GameManager.m_vpFPSPlayer.Controller.PhysicsGravityModifier = 0;
+            }
+        }
 
+        [HarmonyPatch(typeof(FlyMode), nameof(FlyMode.Exit))]
+        private static class GhostWhenFlyOff
+        {
+            internal static void Postfix()
+            {
+                GameManager.GetPlayerManagerComponent().m_Ghost = false;
+                GameManager.m_vpFPSPlayer.Controller.PhysicsGravityModifier = 0.2f;
+            }
+        }
                 
-
-                return true;
+        [HarmonyPatch(typeof(FlyMode), nameof(FlyMode.TeleportPlayerAndExit))]
+        private static class GhostWhenFlyOff2
+        {
+            internal static void Postfix()
+            {
+                GameManager.GetPlayerManagerComponent().m_Ghost = false;
+                GameManager.m_vpFPSPlayer.Controller.PhysicsGravityModifier = 0.2f;
             }
         }
         
@@ -179,16 +203,7 @@ namespace DT
         }
         */
 
-        [HarmonyPatch(typeof(ConsoleManager), "Initialize")]
-        private static class AddCommands
-        {
-            internal static void Postfix()
-            {
-                uConsole.RegisterCommand("weather_clear", new Action(ConsoleCommands.CONSOLE_ClearWeather));
-                uConsole.RegisterCommand("weather_lightsnow", new Action(ConsoleCommands.CONSOLE_LightSnowWeather));
-                uConsole.RegisterCommand("sansara_character_reset", new Action(ConsoleCommands.CONSOLE_SansaraSetup));
-            }
-        }
+
         /*
         public static bool lostFocus;
 

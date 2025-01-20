@@ -1,9 +1,11 @@
-﻿namespace DT
+﻿using Il2CppTLD.Gear;
+
+namespace WT
 {
-    internal class Utility
+    internal static class Utility
     {
 
-        public static DTMain.UEVersion IsUEAssemblyPresent()
+        public static Main.UEVersion IsUEAssemblyPresent()
         {
             MelonAssembly? assembly = MelonAssembly.LoadedAssemblies.FirstOrDefault(obj => obj.Assembly.GetName().Name.Contains("UnityExplorerTLD"));
             //MelonLogger.Msg(assembly);
@@ -16,13 +18,13 @@
                     assembly = MelonAssembly.LoadedAssemblies.FirstOrDefault(obj => obj.Assembly.GetName().Name.Contains("UnityExplorer"));
                     if (assembly == null)
                     {
-                        return DTMain.UEVersion.NotPresent;
+                        return Main.UEVersion.NotPresent;
                     }
-                    else return DTMain.UEVersion.yukieiji;
+                    else return Main.UEVersion.yukieiji;
                 }
-                else return DTMain.UEVersion.STBlade;
+                else return Main.UEVersion.STBlade;
             }
-            else return DTMain.UEVersion.Digitalzombie;
+            else return Main.UEVersion.Digitalzombie;
         }
 
         public static bool IsScenePlayable()
@@ -43,6 +45,21 @@
         public static void Log(ConsoleColor cc, string text)
         {
             if (Settings.options.doLog) MelonLogger.Msg(cc, text);
+        }
+
+
+        public static void ForceReload(this GunItem gi) => gi.m_RoundsInClip = gi.m_ClipSize;
+        public static void ForceRefuel(this KeroseneLampItem kli) => kli.m_CurrentFuelLiters = kli.m_MaxFuel;
+
+        private static string GetPath(Transform transform)
+        {
+            string path = transform.name;
+            while (transform.parent != null)
+            {
+                transform = transform.parent;
+                path = transform.name + "/" + path;
+            }
+            return path;
         }
     }
 }

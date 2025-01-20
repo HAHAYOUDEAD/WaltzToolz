@@ -3,7 +3,7 @@
 
     <PropertyGroup>
         <!--This needs to be changed for the mod to compile.-->
-        <TheLongDarkPath>C:\SteamLibrary\steamapps\common\TheLongDark</TheLongDarkPath>
+        <TheLongDarkPath>E:\SteamLibrary\steamapps\common\TheLongDark</TheLongDarkPath>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -52,6 +52,9 @@
       <PackageReference Include="STBlade.Modding.TLD.Il2CppAssemblies.Windows" Version="2.33.0" />
     </ItemGroup>
     <ItemGroup>
+      <Reference Include="mcs">
+        <HintPath>..\..\..\Modding\refs\mcs.dll</HintPath>
+      </Reference>
       <Reference Include="ModSettings">
         <HintPath>C:\SteamLibrary\steamapps\common\TheLongDark\Mods\ModSettings.dll</HintPath>
       </Reference>
@@ -60,20 +63,18 @@
         <Aliases>UnityExplorerYJ</Aliases>
       </Reference>
       <Reference Include="UnityExplorer.TLD">
-        <HintPath>C:\SteamLibrary\steamapps\common\TheLongDark\Mods\UnityExplorer.TLD.dll</HintPath>
+        <HintPath>..\..\..\SteamLibrary\steamapps\common\TheLongDark\Mods\!NO\UnityExplorer.TLD.dll</HintPath>
         <Aliases>UnityExplorerST</Aliases>
       </Reference>
       <Reference Include="UnityExplorerTLD">
-        <HintPath>C:\SteamLibrary\steamapps\common\TheLongDark\Mods\UnityExplorerTLD.dll</HintPath>
+        <HintPath>..\..\..\SteamLibrary\steamapps\common\TheLongDark\Mods\!NO\UnityExplorerTLD.dll</HintPath>
         <Aliases>UnityExplorerDZ</Aliases>
       </Reference>
       <Reference Include="UniverseLib.IL2CPP.Interop.ML">
-        <HintPath>C:\SteamLibrary\steamapps\common\TheLongDark\UserLibs\UniverseLib.IL2CPP.Interop.ML.dll</HintPath>
-        <Aliases>TLDInterop</Aliases>
+        <HintPath>..\..\..\Modding\refs\UniverseLib.IL2CPP.Interop.ML.dll</HintPath>
       </Reference>
       <Reference Include="UniverseLib.ML.IL2CPP.Interop">
-        <HintPath>C:\SteamLibrary\steamapps\common\TheLongDark\UserLibs\UniverseLib.ML.IL2CPP.Interop.dll</HintPath>
-        <Aliases>NormalInterop</Aliases>
+        <HintPath>..\..\..\SteamLibrary\steamapps\common\TheLongDark\UserLibs\UniverseLib.ML.IL2CPP.Interop.dll</HintPath>
       </Reference>
     </ItemGroup>
 </Project>
