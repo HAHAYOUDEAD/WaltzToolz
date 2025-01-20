@@ -10,9 +10,9 @@
 - Option to quickly load and place meshes from an asset bundle
 - Overlay:
   - Look-at object name will show in gray if isPartOfStaticBatch is true
+  - Command Batch section buttons will execute any commands from text files located in `waltzToolz/commandSets/`
 - Console commands:
   - weather_clear - sets time to 8 and weather to clear
   - weather_lightsnow - sets time to 8 and weather to light snow
   - reload - saves and reloads the same sandbox save
   - load - loads last sandbox save
-    
