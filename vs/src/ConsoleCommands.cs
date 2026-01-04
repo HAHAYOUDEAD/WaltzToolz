@@ -1,6 +1,5 @@
 ﻿using Il2CppTLD.Gear;
 using Il2CppTLD.Scenes;
-using Mono.CSharp;
 using UnityEngine.ResourceManagement.ResourceLocations;
 
 namespace WT
@@ -10,7 +9,7 @@ namespace WT
 
         public static string loadingSceneSafely = string.Empty;
 
-        [HarmonyPatch(typeof(ConsoleManager), "Initialize")]
+        [HarmonyPatch(typeof(ConsoleManager), nameof(ConsoleManager.Initialize))]
         private static class AddCommands
         {
             internal static void Postfix()

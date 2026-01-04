@@ -14,19 +14,19 @@ namespace WT
             switch (isUnityExplorerPresent)
             {
                 case UEVersion.STBlade:
-                    InspectST(go);
+                    //InspectST(go);
                     break;
                 case UEVersion.Digitalzombie:
                     InspectDZ(go);
                     break;
                 case UEVersion.yukieiji:
-                    InspectYJ(go);
+                    //InspectYJ(go);
                     break;
             }
         }
-        public static void InspectST(object go) => UEST.InspectorManager.Inspect(go);
+        //public static void InspectST(object go) => UEST.InspectorManager.Inspect(go);
         public static void InspectDZ(object go) => UEDZ.InspectorManager.Inspect(go);
-        public static void InspectYJ(object go) => UEYJ.InspectorManager.Inspect(go);
+        //public static void InspectYJ(object go) => UEYJ.InspectorManager.Inspect(go);
 
 
         public static KeyCode UEGetDefaultKey()
@@ -34,11 +34,11 @@ namespace WT
             switch (isUnityExplorerPresent)
             {
                 case UEVersion.STBlade:
-                    return UEGetDefaultKeyST();
+                    //return UEGetDefaultKeyST();
                 case UEVersion.Digitalzombie:
                     return UEGetDefaultKeyDZ();
                 case UEVersion.yukieiji:
-                    return UEGetDefaultKeyYJ();
+                    //return UEGetDefaultKeyYJ();
                 default:
                     return KeyCode.F7;
             }
@@ -50,13 +50,13 @@ namespace WT
             switch (isUnityExplorerPresent)
             {
                 case UEVersion.STBlade:
-                    UEHideOnStartupST();
+                    //UEHideOnStartupST();
                     break;
                 case UEVersion.Digitalzombie:
                     UEHideOnStartupDZ();
                     break;
                 case UEVersion.yukieiji:
-                    UEHideOnStartupYJ();
+                    //UEHideOnStartupYJ();
                     break;
             }
         }
@@ -66,13 +66,13 @@ namespace WT
             switch (isUnityExplorerPresent)
             {
                 case UEVersion.STBlade:
-                    UERestoreSettingsST();
+                    //UERestoreSettingsST();
                     break;
                 case UEVersion.Digitalzombie:
                     UERestoreSettingsDZ();
                     break;
                 case UEVersion.yukieiji:
-                    UERestoreSettingsYJ();
+                    //UERestoreSettingsYJ();
                     break;
             }
         }
@@ -82,24 +82,27 @@ namespace WT
             switch (isUnityExplorerPresent)
             {
                 case UEVersion.STBlade:
-                    return UEIsUIEnabledST();
+                    //return UEIsUIEnabledST();
+                    break;
                 case UEVersion.Digitalzombie:
                     return UEIsUIEnabledDZ();
                 case UEVersion.yukieiji:
-                    return UEIsUIEnabledYJ();
+                    //return UEIsUIEnabledYJ();
+                    break;
             }
             return false;
         }
 
 
-        public static void UEHideOnStartupST() => UEST.Config.ConfigManager.Hide_On_Startup.Value = true;
+        //public static void UEHideOnStartupST() => UEST.Config.ConfigManager.Hide_On_Startup.Value = true;
         public static void UEHideOnStartupDZ() => UEDZ.Config.ConfigManager.Hide_On_Startup.Value = true;
-        public static void UEHideOnStartupYJ() => UEYJ.Config.ConfigManager.Hide_On_Startup.Value = true;
+        //public static void UEHideOnStartupYJ() => UEYJ.Config.ConfigManager.Hide_On_Startup.Value = true;
 
-        public static KeyCode UEGetDefaultKeyST() => UEST.Config.ConfigManager.Master_Toggle.Value;
+        //public static KeyCode UEGetDefaultKeyST() => UEST.Config.ConfigManager.Master_Toggle.Value;
         public static KeyCode UEGetDefaultKeyDZ() => UEDZ.Config.ConfigManager.Master_Toggle.Value;
-        public static KeyCode UEGetDefaultKeyYJ() => UEYJ.Config.ConfigManager.Master_Toggle.Value;
+        //public static KeyCode UEGetDefaultKeyYJ() => UEYJ.Config.ConfigManager.Master_Toggle.Value;
 
+        /*
         public static void UERestoreSettingsST()
         {
             foreach (UEST.UI.UIManager.Panels e in Enum.GetValues(typeof(UEST.UI.UIManager.Panels)))
@@ -107,6 +110,7 @@ namespace WT
                 UEST.UI.UIManager.GetPanel(e).ApplySaveData();
             }
         }
+        */
         public static void UERestoreSettingsDZ()
         {
             foreach (UEDZ.UI.UIManager.Panels e in Enum.GetValues(typeof(UEDZ.UI.UIManager.Panels)))
@@ -114,6 +118,7 @@ namespace WT
                 UEDZ.UI.UIManager.GetPanel(e).ApplySaveData();
             }
         }
+        /*
         public static void UERestoreSettingsYJ()
         {
             foreach (UEYJ.UI.UIManager.Panels e in Enum.GetValues(typeof(UEYJ.UI.UIManager.Panels)))
@@ -121,11 +126,12 @@ namespace WT
                 UEYJ.UI.UIManager.GetPanel(e).ApplySaveData();
             }
         }
+        */
 
 
-        public static bool UEIsUIEnabledST() => UEST.UI.UIManager.ShowMenu;
+        //public static bool UEIsUIEnabledST() => UEST.UI.UIManager.ShowMenu;
         public static bool UEIsUIEnabledDZ() => UEDZ.UI.UIManager.ShowMenu;
-        public static bool UEIsUIEnabledYJ() => UEYJ.UI.UIManager.ShowMenu;
+        //public static bool UEIsUIEnabledYJ() => UEYJ.UI.UIManager.ShowMenu;
 
 
 

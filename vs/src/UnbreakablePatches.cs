@@ -2,15 +2,33 @@
 using Il2CppTLD.IntBackedUnit;
 using Il2CppTLD.Placement;
 
+using System.Diagnostics;
+
 namespace WT
 {
     internal class UnbreakablePatches
     {
 
         public static Vector3 gravityVector = new Vector3(0, -9.8f, 0);
+        /*
+        [HarmonyPatch(typeof(SaveGameSystem), nameof(SaveGameSystem.LoadSceneData))]
+        private static class MakeStuffMovable
+        {
+            internal static void Postfix(ref string sceneSaveName)
+            {
+                MelonLogger.Msg(CC.Red, "start delay");
+                var stopwatch = Stopwatch.StartNew();
+                while (stopwatch.Elapsed.TotalSeconds < 6f)
+                {
+                    // Do nothing, just loop
+                }
+                MelonLogger.Msg(CC.Red, "end delay");
+            }
+        }
+        */
 
 
-        [HarmonyPatch(typeof(GameManager), nameof(GameManager.Awake))]
+                [HarmonyPatch(typeof(GameManager), nameof(GameManager.Awake))]
         private static class GetGameManagerForInspection
         {
             internal static void Prefix(ref GameManager __instance)

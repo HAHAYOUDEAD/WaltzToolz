@@ -398,7 +398,21 @@ namespace WT
             GameManager.GetTimeOfDayComponent().SetNormalizedTime(GUI.HorizontalSlider(MakeRect(HUDe.FullLine, entry, isLeftSide), GameManager.GetTimeOfDayComponent().GetNormalizedTime(), 0f, 1f));
 
 
-
+            entry = 4;
+            Fire f = HUDHit?.GetComponentInChildren<Fire>();
+            if (!f) f = HUDHit?.GetComponentInParent<Fire>();
+            if (f)
+            {
+                if (GUI.Button(MakeRect(HUDe.FullLine, entry, isLeftSide), "Extinguish Fire"))
+                {
+                    f.StopFireLoopImmediate();
+                    f.FireStateSet(FireState.Off);
+                }
+            }
+            else
+            {
+                GUI.Button(MakeRect(HUDe.FullLine, entry, isLeftSide), "Extinguish Fire", inactiveButton);
+            }
             entry = 5;
             Container c = HUDHit?.GetComponentInChildren<Container>();
             if (c)
