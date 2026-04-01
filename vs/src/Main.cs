@@ -1,6 +1,6 @@
 ﻿//extern alias UnityExplorerST;
 extern alias UnityExplorerDZ;
-//extern alias UnityExplorerYJ;
+
 global using CC = System.ConsoleColor;
 global using System;
 global using MelonLoader;
@@ -347,7 +347,7 @@ namespace WT
                 foreach (FileInfo file in Files)
                 {
                     string n = file.Name;
-                    AssetBundle ab = AssetBundle.LoadFromFile("Mods/" + bundleFolderName + n);
+                    AssetBundle ab = AssetBundle.LoadFromFile(modsPath + bundleFolderName + n);
 
                     if (ab && !loadedBundles.Contains(ab))
                     {

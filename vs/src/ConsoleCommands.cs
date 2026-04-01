@@ -1,6 +1,8 @@
 ﻿using Il2CppTLD.Gear;
 using Il2CppTLD.Scenes;
 using UnityEngine.ResourceManagement.ResourceLocations;
+using Il2CppCollection = Il2CppSystem.Collections.Generic;
+using Il2CppTLD.AddressableAssets;
 
 namespace WT
 {
@@ -21,6 +23,7 @@ namespace WT
                     uConsole.RegisterCommand("sansara_character_reset", new Action(CONSOLE_SansaraSetup));
                     uConsole.RegisterCommand("reload", new Action(CONSOLE_Reload));
                     uConsole.RegisterCommand("load", new Action(CONSOLE_Load));
+                    uConsole.RegisterCommand("scene_next", new Action(CONSOLE_NextScene));
                     //uConsole.RegisterCommand("scene_safe", new Action(CONSOLE_SafeLoadScene));
                     //uConsole.RegisterCommand("reload_but_save_first", new Action(CONSOLE_Reload));
 
@@ -149,6 +152,31 @@ namespace WT
             ppm.DoQuitGame();
 
             MelonCoroutines.Start(Main.WaitForSaveSlotsAndLoad());
+        }
+        public static void CONSOLE_NextScene()
+        {
+            string currentScene = GameManager.m_ActiveScene;
+            Il2CppCollection.List<IResourceLocation> scenes = AssetHelper.FindAllAssetsLocations<SceneSet>().Cast<Il2CppCollection.List<IResourceLocation>>();
+            List<string> sceneNames = new ();
+
+            foreach (IResourceLocation sceneResource in scenes)
+            {
+                sceneNames.Add(sceneResource.PrimaryKey.ToLowerInvariant());
+            }
+            sceneNames.Sort();
+
+            if (IsScenePlayable(currentScene) && sceneNames.Contains(currentScene.ToLowerInvariant()))
+            {
+                int next = sceneNames.IndexOf(currentScene.ToLowerInvariant()) + 1;
+                if (next >= sceneNames.Count) next = 0;
+                GameAudioManager.StopAll();
+                GameManager.LoadSceneWithLoadingScreen(sceneNames[next]);
+                uConsoleLog.Add(next == 0 ? $"This was the last scene, loading {sceneNames[next]}" : $"Loading {sceneNames[next]}");
+                uConsole.TurnOff();
+                return;
+            }
+            uConsoleLog.Add("You have to be in a playable scene to use this command");
+            return;
         }
 
            
